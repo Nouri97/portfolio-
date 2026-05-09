@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamza Nouri · Data Engineer & BI Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --navy-mid: #162d54;
+    --navy-light: #1e3a6e;
+    --blue: #2f80ed;
+    --blue-bright: #56a0f5;
+    --blue-pale: #e8f2fe;
+    --blue-mid: #c3d9f7;
+    --teal: #00b4a0;
+    --teal-pale: #e0f7f5;
+    --slate: #4a5568;
+    --muted: #718096;
+    --border: #e2e8f0;
+    --bg: #f8fafd;
+    --card: #ffffff;
+    --text: #1a202c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,31,60,0.96); backdrop-filter: blur(12px);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo span { color: var(--blue-bright); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue-bright); }
+  .nav-cta { background: var(--blue); color: #fff; padding: 9px 22px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .nav-cta:hover { background: var(--blue-bright); transform: translateY(-1px); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; background: var(--navy);
+    position: relative; display: flex; align-items: center;
+    overflow: hidden; padding-top: 64px;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(47,128,237,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(47,128,237,0.18) 0%, transparent 70%); top: -200px; right: -100px; pointer-events: none; }
+  .hero-glow2 { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(0,180,160,0.1) 0%, transparent 70%); bottom: 0; left: 10%; pointer-events: none; }
+  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 2; width: 100%; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(47,128,237,0.12); border: 1px solid rgba(47,128,237,0.3); color: var(--blue-bright); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+  h1.hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem,5vw,4.2rem); color: #fff; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1.hero-name em { font-style: italic; color: var(--blue-bright); }
+  .hero-title { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.45); margin-bottom: 28px; letter-spacing: 0.03em; }
+  .hero-summary { font-size: 1rem; line-height: 1.78; color: rgba(255,255,255,0.7); max-width: 520px; margin-bottom: 40px; }
+  .hero-summary strong { color: var(--blue-bright); font-weight: 600; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 52px; }
+  .btn-primary { background: var(--blue); color: #fff; padding: 13px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 20px rgba(47,128,237,0.35); }
+  .btn-primary:hover { background: var(--blue-bright); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: rgba(255,255,255,0.8); padding: 13px 30px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: border-color 0.2s, color 0.2s; }
+  .btn-outline:hover { border-color: var(--blue-bright); color: var(--blue-bright); }
+  .hero-stats { display: flex; gap: 36px; }
+  .hs { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 20px; }
+  .hs-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #fff; line-height: 1; }
+  .hs-num span { color: var(--blue-bright); }
+  .hs-lbl { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* Hero visual cards */
+  .hero-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tech-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; transition: border-color 0.2s, background 0.2s; }
+  .tech-card:hover { background: rgba(47,128,237,0.08); border-color: rgba(47,128,237,0.3); }
+  .tech-card.featured { grid-column: span 2; background: rgba(47,128,237,0.08); border-color: rgba(47,128,237,0.2); }
+  .tc-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .tc-label { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+  .tc-sub { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono', monospace; }
+
+  /* SECTIONS */
+  section { padding: 96px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .sec-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .sec-label::before { content: ''; width: 24px; height: 2px; background: var(--blue); }
+  .sec-label.teal { color: var(--teal); }
+  .sec-label.teal::before { background: var(--teal); }
+  h2.sec-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem,4vw,2.8rem); color: var(--navy); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+  h2.sec-title em { font-style: italic; color: var(--blue); }
+  .sec-desc { font-size: 1rem; color: var(--muted); max-width: 560px; line-height: 1.72; }
+
+  /* ABOUT */
+  #about { background: var(--card); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .about-card { background: linear-gradient(135deg, var(--navy-light), var(--teal)); border-radius: 24px; padding: 44px; color: #fff; position: relative; overflow: hidden; }
+  .about-card::after { content: 'HN'; position: absolute; font-family: 'DM Serif Display', serif; font-size: 9rem; opacity: 0.06; right: -10px; bottom: -20px; line-height: 1; }
+  .ac-name { font-family: 'DM Serif Display', serif; font-size: 1.9rem; margin-bottom: 4px; }
+  .ac-role { font-size: 0.85rem; opacity: 0.7; margin-bottom: 28px; }
+  .ac-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ac-tag { background: rgba(255,255,255,0.14); border-radius: 6px; padding: 5px 12px; font-size: 0.74rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+  .ac-float { position: absolute; bottom: -24px; right: -20px; background: #fff; border-radius: 16px; padding: 18px 22px; box-shadow: 0 16px 48px rgba(0,0,0,0.12); border: 1px solid var(--border); }
+  .ac-float-num { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--blue); line-height: 1; }
+  .ac-float-lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+  .about-visual { position: relative; padding-bottom: 36px; }
+  .about-body p { font-size: 1rem; line-height: 1.8; color: var(--slate); margin-bottom: 18px; }
+  .about-body strong { color: var(--text); font-weight: 700; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .atag { background: var(--blue-pale); color: var(--navy-light); font-size: 0.78rem; font-weight: 600; padding: 5px 14px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; }
+  .atag.teal { background: var(--teal-pale); color: #0a6660; }
+  .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .kpi { background: var(--bg); border-radius: 12px; padding: 18px; border: 1px solid var(--border); }
+  .kpi-num { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: var(--navy); line-height: 1; }
+  .kpi-num span { color: var(--blue); }
+  .kpi-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .proj-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
+  .pstack { display: flex; flex-direction: column; gap: 28px; }
+  .pcard { background: var(--card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; display: grid; grid-template-columns: 280px 1fr; transition: box-shadow 0.25s, transform 0.25s; }
+  .pcard:hover { transform: translateY(-3px); box-shadow: 0 20px 60px rgba(13,31,60,0.1); }
+  .pcard.flip { grid-template-columns: 1fr 280px; }
+  .pcard.flip .pside { order: 2; } .pcard.flip .pinfo { order: 1; }
+  .pside { background: var(--navy); padding: 40px 32px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .pside::after { content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(47,128,237,0.2) 0%, transparent 70%); bottom: -50px; right: -50px; }
+  .pnum { font-family: 'DM Serif Display', serif; font-size: 4.5rem; color: rgba(255,255,255,0.05); line-height: 1; margin-bottom: 4px; }
+  .pcat { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+  .pside h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; line-height: 1.35; margin-bottom: 24px; position: relative; z-index: 1; }
+  .ppills { display: flex; flex-wrap: wrap; gap: 6px; position: relative; z-index: 1; }
+  .ppill { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); font-size: 0.68rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 4px 10px; border-radius: 4px; }
+  .pinfo { padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+  .pblabel { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+  .pblabel.teal { color: var(--teal); }
+  .pinfo p { font-size: 0.9rem; line-height: 1.75; color: var(--slate); }
+  .pinfo strong { color: var(--text); font-weight: 700; }
+  .pbullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .pbullets li { font-size: 0.88rem; color: var(--slate); line-height: 1.6; padding-left: 16px; position: relative; }
+  .pbullets li::before { content: '→'; position: absolute; left: 0; color: var(--blue); font-weight: 700; font-size: 0.8rem; top: 2px; }
+  .pbullets li.teal::before { color: var(--teal); }
+  .pbullets li strong { color: var(--text); font-weight: 600; }
+  .pmetrics { display: flex; gap: 14px; flex-wrap: wrap; }
+  .pm { padding: 12px 16px; border-radius: 10px; background: var(--blue-pale); border: 1px solid var(--blue-mid); }
+  .pm.teal { background: var(--teal-pale); border-color: #a0e0d8; }
+  .pm-num { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--navy); line-height: 1; margin-bottom: 2px; }
+  .pm.teal .pm-num { color: #0a6660; }
+  .pm-lbl { font-size: 0.68rem; color: var(--muted); }
+
+  /* CONSULTING */
+  #consulting { background: var(--navy); padding: 96px 0; }
+  #consulting h2.sec-title { color: #fff; }
+  #consulting .sec-desc { color: rgba(255,255,255,0.5); }
+  .cgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 52px; }
+  .ccard { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; transition: border-color 0.2s, background 0.2s; position: relative; overflow: hidden; }
+  .ccard::before { content: ''; position: absolute; width: 280px; height: 280px; border-radius: 50%; top: -100px; right: -80px; opacity: 0.12; filter: blur(60px); }
+  .ccard.agc::before { background: var(--blue); }
+  .ccard.eth::before { background: var(--teal); }
+  .ccard:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
+  .ccard-co { font-family: 'DM Serif Display', serif; font-size: 1.55rem; color: #fff; margin-bottom: 8px; }
+  .ccard-role { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; margin-bottom: 22px; }
+  .ccard-role.blue { background: rgba(47,128,237,0.2); color: var(--blue-bright); }
+  .ccard-role.teal { background: rgba(0,180,160,0.15); color: var(--teal); }
+  .cstats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
+  .cs { text-align: center; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 8px; }
+  .cs-num { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: #fff; line-height: 1; margin-bottom: 2px; }
+  .cs-lbl { font-size: 0.62rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.07em; }
+  .cfocus { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .cfocus li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.86rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .ci { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .ctech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ctag { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.45); font-size: 0.68rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 4px 10px; border-radius: 4px; }
+
+  /* SKILLS */
+  #skills { background: var(--card); }
+  .skills-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; align-items: start; }
+  .skill-row { margin-bottom: 28px; }
+  .skill-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .skill-name { font-size: 0.88rem; font-weight: 700; color: var(--text); font-family: 'DM Sans', sans-serif; }
+  .skill-level { font-size: 0.74rem; font-family: 'JetBrains Mono', monospace; color: var(--muted); }
+  .skill-track { height: 7px; border-radius: 4px; background: var(--bg); overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 4px; }
+  .skill-fill.blue { background: linear-gradient(90deg, var(--blue), var(--blue-bright)); }
+  .skill-fill.teal { background: linear-gradient(90deg, var(--teal), var(--blue)); }
+  .stags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .stag { font-family: 'JetBrains Mono', monospace; font-size: 0.69rem; font-weight: 500; padding: 3px 9px; border-radius: 4px; background: var(--bg); border: 1px solid var(--border); color: var(--slate); }
+  .mcard { background: var(--navy); border-radius: 20px; padding: 36px; color: #fff; }
+  .mcard h4 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 22px; }
+  .mrow { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .mrow:last-of-type { border-bottom: none; }
+  .mrow-name { font-size: 0.87rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .mrow-tech { font-size: 0.7rem; color: rgba(255,255,255,0.3); font-family: 'JetBrains Mono', monospace; text-align: right; }
+  .mstars { display: flex; gap: 3px; }
+  .star { width: 7px; height: 7px; border-radius: 50%; }
+  .star.b { background: var(--blue); }
+  .star.t { background: var(--teal); }
+  .star.off { background: rgba(255,255,255,0.1); }
+  .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .cert { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px; border: 1px solid rgba(255,255,255,0.07); }
+  .cert-icon { font-size: 1.3rem; margin-bottom: 8px; }
+  .cert-name { font-size: 0.82rem; font-weight: 600; color: #fff; margin-bottom: 2px; }
+  .cert-iss { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+  .langs { display: flex; gap: 12px; margin-top: 18px; }
+  .lpill { flex: 1; text-align: center; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 8px; border: 1px solid rgba(255,255,255,0.07); }
+  .lpill-name { font-size: 0.88rem; font-weight: 600; color: #fff; margin-bottom: 3px; }
+  .lpill-lv { font-size: 0.68rem; color: var(--teal); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* EDUCATION */
+  #education { background: var(--bg); }
+  .edu-timeline { margin-top: 52px; max-width: 700px; position: relative; }
+  .edu-timeline::before { content: ''; position: absolute; left: 29px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--blue), var(--teal)); }
+  .edu-item { display: flex; gap: 32px; align-items: flex-start; padding-bottom: 36px; }
+  .edu-dot { width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 3px solid var(--bg); z-index: 1; }
+  .edu-dot.blue { background: linear-gradient(135deg, var(--blue), var(--blue-bright)); }
+  .edu-dot.teal { background: linear-gradient(135deg, var(--teal), var(--blue)); }
+  .edu-body { background: var(--card); border-radius: 16px; padding: 26px 30px; border: 1px solid var(--border); flex: 1; transition: transform 0.2s, box-shadow 0.2s; }
+  .edu-body:hover { transform: translateX(4px); box-shadow: 0 10px 36px rgba(0,0,0,0.07); }
+  .edu-yr { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-bottom: 7px; }
+  .edu-deg { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--text); margin-bottom: 4px; }
+  .edu-sch { font-size: 0.88rem; color: var(--blue); font-weight: 500; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); padding: 96px 0; }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  #contact h2.sec-title { color: #fff; }
+  #contact .sec-desc { color: rgba(255,255,255,0.5); }
+  .avail { display: inline-flex; align-items: center; gap: 10px; background: rgba(0,180,160,0.1); border: 1px solid rgba(0,180,160,0.25); color: var(--teal); font-size: 0.82rem; font-weight: 700; padding: 10px 22px; border-radius: 100px; margin-top: 20px; margin-bottom: 32px; }
+  .avail .pdot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  .clist { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .citem { display: flex; align-items: center; gap: 16px; }
+  .cicon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .cicon.blue { background: rgba(47,128,237,0.15); }
+  .cicon.teal { background: rgba(0,180,160,0.12); }
+  .clabel { font-size: 0.7rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2px; }
+  .cval { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 500; }
+  .cval a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .cval a:hover { color: var(--blue-bright); }
+  .form-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 20px; padding: 40px; }
+  .form-card h4 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 26px; }
+  .fgroup { display: flex; flex-direction: column; gap: 14px; }
+  .finput { width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+  .finput:focus { border-color: var(--blue); }
+  .finput::placeholder { color: rgba(255,255,255,0.3); }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  select.finput option { background: #1a2744; color: #fff; }
+  textarea.finput { resize: vertical; min-height: 110px; }
+  .btn-sub { width: 100%; padding: 15px; background: var(--blue); color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; border: none; border-radius: 10px; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 6px 24px rgba(47,128,237,0.3); margin-top: 4px; }
+  .btn-sub:hover { background: var(--blue-bright); transform: translateY(-1px); }
+
+  /* SOCIAL LINKS strip */
+  .social-strip { display: flex; gap: 14px; margin-top: 28px; }
+  .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .social-btn.linkedin { background: rgba(47,128,237,0.15); color: var(--blue-bright); border: 1px solid rgba(47,128,237,0.25); }
+  .social-btn.linkedin:hover { background: rgba(47,128,237,0.25); transform: translateY(-1px); }
+  .social-btn.gmail { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.12); }
+  .social-btn.gmail:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer { background: #070d1a; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1rem; color: rgba(255,255,255,0.35); }
+  .footer-logo span { color: var(--blue-bright); }
+  .footer-links { display: flex; gap: 24px; align-items: center; }
+  .footer-links a { font-size: 0.78rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue-bright); }
+  .footer-note { font-size: 0.78rem; color: rgba(255,255,255,0.2); }
+
+  /* ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.show { opacity: 1; transform: translateY(0); }
+  .reveal.d1 { transition-delay: 0.12s; } .reveal.d2 { transition-delay: 0.22s; } .reveal.d3 { transition-delay: 0.32s; }
+
+  @media(max-width:960px){
+    .hero-inner,.about-grid,.cgrid,.skills-layout,.contact-layout{grid-template-columns:1fr}
+    .hero-visual{display:none}
+    .pcard,.pcard.flip{grid-template-columns:1fr}
+    .pcard.flip .pside,.pcard.flip .pinfo{order:unset}
+    nav{padding:0 20px}
+    .nav-links{display:none}
+    .container{padding:0 20px}
+    section{padding:64px 0}
+    footer{padding:24px 20px;flex-direction:column;text-align:center}
+    .frow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Hamza<span>.</span>Nouri</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#consulting">Consulting</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">Available for new opportunities</div>
+      <h1 class="hero-name">Senior Data<br><em>Engineer</em> &<br>BI Architect</h1>
+      <p class="hero-title">Cloud Analytics · Enterprise BI · Data Platform Design</p>
+      <p class="hero-summary">Building scalable data platforms from <strong>shop-floor to cloud</strong>. Specializing in end-to-end pipeline engineering, enterprise BI migrations, and hyper-scale optimization across automotive, telecom, and manufacturing industries.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-num">700<span>M+</span></div><div class="hs-lbl">Rows Optimized</div></div>
+        <div class="hs"><div class="hs-num">1<span>,500+</span></div><div class="hs-lbl">BI Users Served</div></div>
+        <div class="hs"><div class="hs-num">5<span>+</span></div><div class="hs-lbl">Years Expertise</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="tech-card featured">
+        <div class="tc-icon">❄️</div>
+        <div class="tc-label">Cloud Data Warehouse</div>
+        <div class="tc-sub">Snowflake · AWS Lambda · Serverless ETL</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-icon">📊</div>
+        <div class="tc-label">BI & Visualization</div>
+        <div class="tc-sub">Power BI · DAX · Cognos</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-icon">⚡</div>
+        <div class="tc-label">Automation</div>
+        <div class="tc-sub">Power Automate · Python · SQL</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-icon">🏗️</div>
+        <div class="tc-label">Data Engineering</div>
+        <div class="tc-sub">DBT · PySpark · Talend · SSIS</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-icon">🔒</div>
+        <div class="tc-label">Governance & Security</div>
+        <div class="tc-sub">RLS · RBAC · Azure AD</div>
+      </div>
+      <div class="tech-card">
+        <div class="tc-icon">🤖</div>
+        <div class="tc-label">Big Data</div>
+        <div class="tc-sub">ClickHouse · Spark · Hive</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="ac-name">Hamza Nouri</div>
+          <div class="ac-role">Senior Data Engineer & BI Architect</div>
+          <div class="ac-tags">
+            <span class="ac-tag">Python</span><span class="ac-tag">SQL</span>
+            <span class="ac-tag">Power BI</span><span class="ac-tag">Snowflake</span>
+            <span class="ac-tag">AWS</span><span class="ac-tag">DAX Expert</span>
+          </div>
+        </div>
+        <div class="ac-float">
+          <div class="ac-float-num">5+</div>
+          <div class="ac-float-lbl">Years across<br>4 industries</div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="sec-label">About Me</div>
+        <h2 class="sec-title">The Builder.<br>The <em>Optimizer</em>.<br>The Migrator.</h2>
+        <div class="about-body">
+          <p>I'm a Senior Data Engineer and BI Architect who turns complex data challenges into clean, scalable, and profitable systems. I've delivered production platforms for <strong>global automotive groups</strong>, a <strong>major telecom operator</strong>, and <strong>industrial manufacturers</strong> — always end-to-end, always with measurable impact.</p>
+          <p>Whether you need a cloud-native pipeline, a Cognos-to-Power BI migration, or a 700M-row dataset that actually loads in under 3 seconds — <strong>I've solved it in production</strong>.</p>
+        </div>
+        <div class="about-tags">
+          <span class="atag">Python</span><span class="atag">SQL</span><span class="atag">Power BI</span>
+          <span class="atag">Snowflake</span><span class="atag">AWS Lambda</span><span class="atag">DBT</span>
+          <span class="atag teal">Power Automate</span><span class="atag teal">Azure Synapse</span><span class="atag teal">ClickHouse</span>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><div class="kpi-num">35<span>+</span></div><div class="kpi-lbl">Enterprise reports migrated Cognos → Power BI</div></div>
+          <div class="kpi"><div class="kpi-num">80<span>%</span></div><div class="kpi-lbl">Refresh time reduction on 700M-row dataset</div></div>
+          <div class="kpi"><div class="kpi-num">1,500<span>+</span></div><div class="kpi-lbl">Daily active BI users served across 3 divisions</div></div>
+          <div class="kpi"><div class="kpi-num">40<span>%</span></div><div class="kpi-lbl">Performance gain via DAX & VertiPaq tuning</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="proj-intro reveal">
+      <div>
+        <div class="sec-label teal">Featured Projects</div>
+        <h2 class="sec-title">From <em>Automation</em><br>to Hyper-Scale</h2>
+      </div>
+      <p style="color:var(--muted);font-size:0.9rem;max-width:340px;line-height:1.7">Four projects spanning increasing complexity — from rapid low-code solutions to enterprise cloud architecture.</p>
+    </div>
+    <div class="pstack">
+
+      <!-- P1 -->
+      <div class="pcard reveal">
+        <div class="pside">
+          <div><div class="pnum">01</div><div class="pcat">Industrial IoT · Cloud</div><h3>iObeya Industrial Analytics & Real-Time KPI Platform</h3></div>
+          <div class="ppills"><span class="ppill">AWS Lambda</span><span class="ppill">Snowflake</span><span class="ppill">DBT</span><span class="ppill">Power BI</span><span class="ppill">Python</span><span class="ppill">REST API</span></div>
+        </div>
+        <div class="pinfo">
+          <div>
+            <div class="pblabel">The Challenge</div>
+            <p>Manufacturing teams had zero real-time visibility on T-Cards and QRCI quality workflows. Siloed data, manual aggregation, and stale dashboards were creating costly operational blind spots across the factory floor.</p>
+          </div>
+          <div>
+            <div class="pblabel">Solution</div>
+            <ul class="pbullets">
+              <li>Serverless <strong>AWS Lambda</strong> extracts from iObeya REST APIs with retry logic & pagination</li>
+              <li><strong>Snowflake EDW</strong> + DBT transformation layers — centralized, tested, production-grade</li>
+              <li><strong>Power BI</strong> real-time dashboards: delay tracking, QRCI monitoring, resolution analysis</li>
+              <li>Automated orchestrators — zero manual refreshes, near-real-time sync</li>
+            </ul>
+          </div>
+          <div class="pmetrics">
+            <div class="pm"><div class="pm-num">3</div><div class="pm-lbl">Pipelines built</div></div>
+            <div class="pm"><div class="pm-num">0</div><div class="pm-lbl">Manual reports</div></div>
+            <div class="pm teal"><div class="pm-num">Real-time</div><div class="pm-lbl">KPI visibility</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="pcard flip reveal d1">
+        <div class="pside">
+          <div><div class="pnum">02</div><div class="pcat">Low-Code ETL · M365</div><h3>Microsoft Planner Automation Pipeline</h3></div>
+          <div class="ppills"><span class="ppill">Power Automate</span><span class="ppill">SQL Server</span><span class="ppill">Power BI</span><span class="ppill">Graph API</span><span class="ppill">DAX</span></div>
+        </div>
+        <div class="pinfo">
+          <div>
+            <div class="pblabel teal">Engineering Challenge</div>
+            <p>Extract <strong>3,389 tasks</strong> from paginated Planner APIs (100-item cap per call), normalize deeply nested JSON, and build a relational SQL schema — all without traditional ETL tooling.</p>
+          </div>
+          <div>
+            <div class="pblabel teal">Solution</div>
+            <ul class="pbullets">
+              <li class="teal">"Do Until" loops with <code style="background:var(--teal-pale);color:#0a6660;padding:1px 5px;border-radius:3px;font-size:0.8rem">@odata.nextLink</code> — processed 3,389 tasks in <strong>37 minutes</strong></li>
+              <li class="teal">Star schema in SQL Server: Fact_Tasks + Dim_Plans, Buckets, Users, Dates</li>
+              <li class="teal">DAX time intelligence: <em>Cette Semaine</em>, <em>En Retard</em>, <em>Semaine Prochaine</em></li>
+              <li class="teal">Delta-only incremental loads — <strong>80% reduction</strong> in API consumption</li>
+            </ul>
+          </div>
+          <div class="pmetrics">
+            <div class="pm teal"><div class="pm-num">3,389</div><div class="pm-lbl">Tasks extracted</div></div>
+            <div class="pm teal"><div class="pm-num">37m</div><div class="pm-lbl">Full pipeline run</div></div>
+            <div class="pm"><div class="pm-num">80%</div><div class="pm-lbl">API load cut</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTING -->
+<section id="consulting">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label teal">Enterprise Consulting</div>
+      <h2 class="sec-title">Senior-Level Engagements</h2>
+      <p class="sec-desc">Two flagship mandates proving execution at enterprise scale — migration strategy, RLS governance, and hyper-scale optimization.</p>
+    </div>
+    <div class="cgrid">
+      <div class="ccard agc reveal d1">
+        <div class="ccard-co">AGC Glass Group</div>
+        <div class="ccard-role blue">Senior Data Analyst · Oct 2021 – Present</div>
+        <div class="cstats">
+          <div class="cs"><div class="cs-num">35+</div><div class="cs-lbl">Reports</div></div>
+          <div class="cs"><div class="cs-num">1,500+</div><div class="cs-lbl">Users</div></div>
+          <div class="cs"><div class="cs-num">40%</div><div class="cs-lbl">Faster</div></div>
+        </div>
+        <ul class="cfocus">
+          <li><span class="ci">🔄</span>Led migration of <strong style="color:#fff">35+ Cognos reports</strong> — Framework Manager to Power BI star schemas, zero downtime</li>
+          <li><span class="ci">👥</span>Served <strong style="color:#fff">1,500+ daily users</strong> across Manufacturing, Quality & Logistics</li>
+          <li><span class="ci">🔒</span>Designed hierarchical <strong style="color:#fff">RLS security model</strong> — plant-level to executive org-wide views</li>
+          <li><span class="ci">⚡</span><strong style="color:#fff">40%+ performance gains</strong> via VertiPaq tuning, cardinality optimization & advanced DAX</li>
+          <li><span class="ci">🤖</span>Power Apps integration for automated factory floor data capture</li>
+        </ul>
+        <div class="ctech"><span class="ctag">Oracle</span><span class="ctag">Snowflake</span><span class="ctag">Python ETL</span><span class="ctag">Power BI</span><span class="ctag">Dataflows Gen2</span><span class="ctag">Azure AD</span></div>
+      </div>
+      <div class="ccard eth reveal d2">
+        <div class="ccard-co">Earthlink Telecom</div>
+        <div class="ccard-role teal">BI Consultant · Freelance · Oct 2024 – Present</div>
+        <div class="cstats">
+          <div class="cs"><div class="cs-num">700M+</div><div class="cs-lbl">Rows</div></div>
+          <div class="cs"><div class="cs-num">80%</div><div class="cs-lbl">Faster</div></div>
+          <div class="cs"><div class="cs-num">&lt;3s</div><div class="cs-lbl">Load Time</div></div>
+        </div>
+        <ul class="cfocus">
+          <li><span class="ci">📊</span>Fixed critical failure on <strong style="color:#fff">700M+ row CDR dataset</strong> — refresh from 8–10 hours to under 90 minutes</li>
+          <li><span class="ci">⚡</span><strong style="color:#fff">Incremental Refresh partitioning</strong> — only 5–10M delta rows scanned daily</li>
+          <li><span class="ci">🔍</span>Rewrote DAX — dashboard load from <strong style="color:#fff">15–20s to sub-3 seconds</strong></li>
+          <li><span class="ci">🎓</span>Delivered workshops on DAX & VertiPaq — built internal Centre of Excellence</li>
+          <li><span class="ci">🏗️</span>Written Azure Synapse vs. Power BI Premium architecture advisory</li>
+        </ul>
+        <div class="ctech"><span class="ctag">ClickHouse</span><span class="ctag">PBI Premium</span><span class="ctag">XMLA</span><span class="ctag">Tabular Editor</span><span class="ctag">Composite Models</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="sec-label">Technical Proficiency</div>
+    <h2 class="sec-title" style="margin-bottom:52px">Skills <em>Matrix</em></h2>
+    <div class="skills-layout">
+      <div class="reveal">
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">BI & Visualization</span><span class="skill-level">5+ yrs · Expert</span></div>
+          <div class="skill-track"><div class="skill-fill blue" style="width:96%"></div></div>
+          <div class="stags"><span class="stag">Power BI</span><span class="stag">DAX</span><span class="stag">Tableau</span><span class="stag">IBM Cognos</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">Low-Code / RPA</span><span class="skill-level">4 yrs · Expert</span></div>
+          <div class="skill-track"><div class="skill-fill blue" style="width:92%"></div></div>
+          <div class="stags"><span class="stag">Power Automate</span><span class="stag">Power Apps</span><span class="stag">Logic Apps</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">Data Engineering</span><span class="skill-level">4 yrs · Advanced</span></div>
+          <div class="skill-track"><div class="skill-fill teal" style="width:84%"></div></div>
+          <div class="stags"><span class="stag">Python</span><span class="stag">SQL</span><span class="stag">Talend</span><span class="stag">SSIS</span><span class="stag">PySpark</span><span class="stag">DBT</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">Cloud & Infrastructure</span><span class="skill-level">3 yrs · Advanced</span></div>
+          <div class="skill-track"><div class="skill-fill teal" style="width:80%"></div></div>
+          <div class="stags"><span class="stag">AWS Lambda</span><span class="stag">Snowflake</span><span class="stag">Azure Synapse</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">Big Data Stack</span><span class="skill-level">3 yrs · Proficient</span></div>
+          <div class="skill-track"><div class="skill-fill blue" style="width:68%"></div></div>
+          <div class="stags"><span class="stag">Spark</span><span class="stag">Hive</span><span class="stag">ClickHouse</span><span class="stag">Elasticsearch</span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-head"><span class="skill-name">Security & Governance</span><span class="skill-level">4 yrs · Advanced</span></div>
+          <div class="skill-track"><div class="skill-fill teal" style="width:82%"></div></div>
+          <div class="stags"><span class="stag">RLS</span><span class="stag">RBAC</span><span class="stag">Azure AD</span><span class="stag">GDPR</span></div>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="mcard">
+          <h4>Capability Overview</h4>
+          <div class="mrow"><span class="mrow-name">BI & Visualization</span><span class="mrow-tech">Power BI · Cognos · Tableau</span><div class="mstars"><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div></div></div>
+          <div class="mrow"><span class="mrow-name">Low-Code / RPA</span><span class="mrow-tech">Power Automate · Apps</span><div class="mstars"><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div></div></div>
+          <div class="mrow"><span class="mrow-name">Data Engineering</span><span class="mrow-tech">Python · SQL · Talend · DBT</span><div class="mstars"><div class="star t"></div><div class="star t"></div><div class="star t"></div><div class="star t"></div><div class="star off"></div></div></div>
+          <div class="mrow"><span class="mrow-name">Cloud & Infra</span><span class="mrow-tech">AWS · Snowflake · Azure</span><div class="mstars"><div class="star t"></div><div class="star t"></div><div class="star t"></div><div class="star t"></div><div class="star off"></div></div></div>
+          <div class="mrow"><span class="mrow-name">Data Modeling</span><span class="mrow-tech">Star Schema · Kimball · DBT</span><div class="mstars"><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div></div></div>
+          <div class="mrow"><span class="mrow-name">Big Data</span><span class="mrow-tech">Spark · ClickHouse · Hive</span><div class="mstars"><div class="star t"></div><div class="star t"></div><div class="star t"></div><div class="star off"></div><div class="star off"></div></div></div>
+          <div class="mrow" style="border-bottom:none"><span class="mrow-name">Advisory & Training</span><span class="mrow-tech">Workshops · CoE · Architecture</span><div class="mstars"><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star b"></div><div class="star off"></div></div></div>
+          <div class="certs">
+            <div class="cert"><div class="cert-icon">🏆</div><div class="cert-name">IBM Big Data Developer</div><div class="cert-iss">IBM Mastery Award</div></div>
+            <div class="cert"><div class="cert-icon">☁️</div><div class="cert-name">IBM IoT Cloud Developer</div><div class="cert-iss">IBM Mastery Award</div></div>
+          </div>
+          <div class="langs">
+            <div class="lpill"><div class="lpill-name">العربية</div><div class="lpill-lv">Native</div></div>
+            <div class="lpill"><div class="lpill-name">Français</div><div class="lpill-lv">Fluent</div></div>
+            <div class="lpill"><div class="lpill-name">English</div><div class="lpill-lv">Fluent</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="sec-label">Academic Background</div>
+    <h2 class="sec-title">Education & <em>Certifications</em></h2>
+    <div class="edu-timeline">
+      <div class="edu-item reveal">
+        <div class="edu-dot blue">🎓</div>
+        <div class="edu-body"><div class="edu-yr">2018 – 2020 · Tetouan, Morocco</div><div class="edu-deg">Master's in Big Data & Data Science</div><div class="edu-sch">Université Abdelmalek Essaadi</div></div>
+      </div>
+      <div class="edu-item reveal d1">
+        <div class="edu-dot teal">📚</div>
+        <div class="edu-body"><div class="edu-yr">2015 – 2018 · El Jadida, Morocco</div><div class="edu-deg">Bachelor's in Database Administration</div><div class="edu-sch">Université Chouaib Doukkali</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="reveal">
+        <div class="sec-label teal">Work With Me</div>
+        <h2 class="sec-title">Ready to Build<br>Something Exceptional?</h2>
+        <p class="sec-desc">Open to data engineering mandates, BI consulting, and architecture advisory. Remote-first, available globally.</p>
+        <div class="avail"><span class="pdot"></span>Currently available for new projects</div>
+        <ul class="clist">
+          <li class="citem">
+            <div class="cicon blue">📍</div>
+            <div><div class="clabel">Location</div><div class="cval">Belgium / Morocco · Remote Worldwide</div></div>
+          </li>
+          <li class="citem">
+            <div class="cicon teal">✉️</div>
+            <div><div class="clabel">Email</div><div class="cval"><a href="mailto:hamza1997nouri@gmail.com">hamza1997nouri@gmail.com</a></div></div>
+          </li>
+          <li class="citem">
+            <div class="cicon blue">🔗</div>
+            <div><div class="clabel">LinkedIn</div><div class="cval"><a href="https://www.linkedin.com/in/hamza-nouri-799b5b174/" target="_blank" rel="noopener">linkedin.com/in/hamza-nouri-799b5b174</a></div></div>
+          </li>
+          <li class="citem">
+            <div class="cicon teal">💼</div>
+            <div><div class="clabel">Open To</div><div class="cval">Freelance · Consulting · Full-time</div></div>
+          </li>
+          <li class="citem">
+            <div class="cicon blue">🏭</div>
+            <div><div class="clabel">Industries</div><div class="cval">Manufacturing · Telecom · Finance · Automotive</div></div>
+          </li>
+        </ul>
+        <div class="social-strip">
+          <a href="https://www.linkedin.com/in/hamza-nouri-799b5b174/" target="_blank" rel="noopener" class="social-btn linkedin">🔗 LinkedIn Profile</a>
+          <a href="mailto:hamza1997nouri@gmail.com" class="social-btn gmail">✉️ Send Email</a>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="form-card">
+          <h4>Drop a Message 👋</h4>
+          <div class="fgroup">
+            <div class="frow">
+              <input class="finput" type="text" placeholder="Your Name">
+              <input class="finput" type="email" placeholder="Email Address">
+            </div>
+            <select class="finput">
+              <option value="">Type of Engagement...</option>
+              <option>Freelance Data Engineering</option>
+              <option>BI / Power BI Consulting</option>
+              <option>Architecture Advisory</option>
+              <option>Cognos Migration Project</option>
+              <option>Training & Workshops</option>
+              <option>Full-time Position</option>
+            </select>
+            <input class="finput" type="text" placeholder="Company / Project Name">
+            <textarea class="finput" placeholder="Tell me about your project — what problem are you trying to solve?"></textarea>
+            <button class="btn-sub">Send Message →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Hamza<span>.</span>Nouri</div>
+  <div class="footer-links">
+    <a href="mailto:hamza1997nouri@gmail.com">✉ hamza1997nouri@gmail.com</a>
+    <a href="https://www.linkedin.com/in/hamza-nouri-799b5b174/" target="_blank" rel="noopener">🔗 LinkedIn</a>
+  </div>
+  <div class="footer-note">Senior Data Engineer & BI Architect · Belgium / Morocco</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  }));
+</script>
+</body>
+</html>
